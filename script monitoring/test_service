@@ -1,0 +1,22 @@
+#!/bin/bash
+
+
+function testService {
+  REP=$(ping $1  | grep "time")
+  
+  if [ "$REP" = "" ]
+  then
+    MAREP="Le port $2 ne répond pas sur $1"
+    echo "$MAREP"
+    DATE=$(date +%d/%m/%Y)
+    HEURE=$(date +%H:%M)
+    echo "$DATE $HEURE $MAREP" >> /var/log/scanning.log
+    echo $MAREP | mutt -s "Alerte" email@email.com
+    echo "yes"
+  fi
+}
+
+# Programme principal
+testService 192.168.16.10 53
+testService 192.168.16.201 22
+testService 192.168.1.202 80

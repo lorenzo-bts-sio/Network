@@ -1,0 +1,11 @@
+#!/bin/bash
+
+# Recupération de valeurs
+DISQUE=`df | grep "/dev/sda1" | tr -s " " | cut -d " " -f 4`
+MEM=`free | grep "Mem" | tr -s " " | cut -d " " -f 4`
+
+# Ecriture dans le dossier /var/www/html
+echo "$DISQUE:$MEM" > /var/www/html/memoire.txt
+chmod 644 /var/www/html/memoire.txt
+
+

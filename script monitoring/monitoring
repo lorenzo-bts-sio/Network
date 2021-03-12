@@ -1,0 +1,30 @@
+#!/bin/bash
+
+DATE=$(date +%d/%m/%Y)
+HEURE=$(date +%H:%M)
+
+function RUN {
+  NOM=$1
+  IP=$2
+
+  # Chargement des informations (remarquez qu'une adresse IP fixe est préférable)
+  wget -T 2 -t 1 $IP/monitoring.txt
+  DISQUE=$(cat monitoring.txt | cut -d ":" -f 1)
+  MEM=$(cat monitoring.txt | cut -d ":" -f 2)
+  rm monitoring.txt
+
+  # Ecriture dans le LOG
+  echo "$DATE $HEURE Espace mémoire sur $NOM $MEM Ko" >> /var/log/monitoring.log
+  echo "$DATE $HEURE Espace disque sur $NOM $DISQUE Ko" >> /var/log/monitoring.log
+
+  # Mails
+  if [ $DISQUE -lt 250000 ]
+  then
+    echo "Espace disque trop faible sur $NOM ($DISQUE Ko)"
+    echo "Espace disque trop faible sur $NOM ($DISQUE Ko)" | mutt -s "lgmCental" mail@mail.com
+  fi
+}
+
+# Les adresse IP ne sont pas fixes, il faut donc adapter le script
+RUN mint9 192.168.16.201
+RUN sisr1004 192.168.16.202
