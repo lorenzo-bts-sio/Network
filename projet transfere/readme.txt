@@ -1,0 +1,6 @@
+VERSION : V . 0 
+TYPE : NETWORK 
+DESCRIPTION : automatic archive and transfer creation
+LANGAGE : PYTHON 3 
+
+TO COME UP : BASH INSTALLER + CODE REDESIGN 

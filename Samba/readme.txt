@@ -1,0 +1,6 @@
+VERSION : V . 0 
+TYPE : NETWORK 
+DESCRIPTION : server deployment automation program
+LANGAGE : PYTHON 3 
+
+TO COME UP : BASH INSTALLER + CODE REDESIGN 
